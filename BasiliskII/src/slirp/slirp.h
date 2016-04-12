@@ -49,7 +49,11 @@ typedef int ioctlsockopt_t;
 # define O_BINARY 0
 #endif
 
+
 #include <sys/types.h>
+#ifdef HAVE_RESOLV_H
+# include <resolv.h>
+#endif
 #ifdef HAVE_SYS_BITYPES_H
 # include <sys/bitypes.h>
 #endif
@@ -215,6 +219,11 @@ int inet_aton(const char *cp, struct in_addr *ia);
 #else
 #error "Packed attribute or pragma shall be supported"
 #endif
+
+/* Avoid conflicting with system headers */
+#define tcphdr slirp_tcphdr
+#define mbstat slirp_mbstat
+#define sbuf slirp_sbuf
 
 #include "ip.h"
 #include "tcp.h"
