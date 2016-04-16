@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "KBKeyboardView.h"
 #import "B2DesktopDatabase.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface B2AppDelegate : UIResponder <UIApplicationDelegate, KBKeyboardViewDelegate, B2DesktopDelegate>
+@interface B2AppDelegate : UIResponder <UIApplicationDelegate, B2DesktopDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (readonly, nonatomic) NSString *documentsPath;

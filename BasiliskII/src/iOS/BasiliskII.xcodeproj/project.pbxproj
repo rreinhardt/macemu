@@ -32,7 +32,7 @@
 		2898F45C18CB719600FE7806 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2898F45A18CB719600FE7806 /* InfoPlist.strings */; };
 		2898F45E18CB719600FE7806 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2898F45D18CB719600FE7806 /* main.m */; };
 		2898F46218CB719600FE7806 /* B2AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2898F46118CB719600FE7806 /* B2AppDelegate.mm */; };
-		2898F46B18CB719600FE7806 /* B2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2898F46A18CB719600FE7806 /* B2ViewController.m */; };
+		2898F46B18CB719600FE7806 /* B2ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2898F46A18CB719600FE7806 /* B2ViewController.mm */; };
 		2898F46D18CB719600FE7806 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2898F46C18CB719600FE7806 /* Images.xcassets */; };
 		2898F47418CB719600FE7806 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2898F47318CB719600FE7806 /* XCTest.framework */; };
 		2898F47518CB719700FE7806 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2898F45118CB719600FE7806 /* Foundation.framework */; };
@@ -178,7 +178,7 @@
 		2898F46018CB719600FE7806 /* B2AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = B2AppDelegate.h; sourceTree = "<group>"; };
 		2898F46118CB719600FE7806 /* B2AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = B2AppDelegate.mm; sourceTree = "<group>"; };
 		2898F46918CB719600FE7806 /* B2ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = B2ViewController.h; sourceTree = "<group>"; };
-		2898F46A18CB719600FE7806 /* B2ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = B2ViewController.m; sourceTree = "<group>"; };
+		2898F46A18CB719600FE7806 /* B2ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = B2ViewController.mm; sourceTree = "<group>"; };
 		2898F46C18CB719600FE7806 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2898F47218CB719600FE7806 /* BasiliskIITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BasiliskIITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2898F47318CB719600FE7806 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -404,7 +404,7 @@
 			children = (
 				282A8E8D1A500A79008F8F71 /* Main.storyboard */,
 				2898F46918CB719600FE7806 /* B2ViewController.h */,
-				2898F46A18CB719600FE7806 /* B2ViewController.m */,
+				2898F46A18CB719600FE7806 /* B2ViewController.mm */,
 				2898F57418CC82DD00FE7806 /* B2ScreenView.h */,
 				2898F57518CC82DD00FE7806 /* B2ScreenView.mm */,
 				2898F46C18CB719600FE7806 /* Images.xcassets */,
@@ -864,7 +864,7 @@
 				2898F54118CB870E00FE7806 /* prefs_items.cpp in Sources */,
 				281A4CA31CAB2E0F00A380A7 /* B2FileChooserTableViewCell.m in Sources */,
 				28AD37C919A6135500ADF203 /* slirp.c in Sources */,
-				2898F46B18CB719600FE7806 /* B2ViewController.m in Sources */,
+				2898F46B18CB719600FE7806 /* B2ViewController.mm in Sources */,
 				2898F4A518CB72C100FE7806 /* scsi.cpp in Sources */,
 				2898F51A18CB76C000FE7806 /* basilisk_glue.cpp in Sources */,
 				28B5C12618D27536006583B9 /* audio_ios_impl.cpp in Sources */,

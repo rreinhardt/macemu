@@ -185,9 +185,11 @@
 }
 
 - (void)hideKeyboard:(KBHideKey *)key {
-    NSLog(@"hiding keyboard");
-    // TODO animate
-    [self removeFromSuperview];
+    if ([self.delegate respondsToSelector:@selector(hideKeyboard:)]) {
+        [self.delegate hideKeyboard:key];
+    } else {
+        self.hidden = YES;
+    }
 }
 
 - (void)stickyKey:(KBStickyKey *)key {

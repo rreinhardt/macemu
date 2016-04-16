@@ -11,9 +11,11 @@
 
 @class KBKey;
 
-@protocol KBKeyboardViewDelegate
+@protocol KBKeyboardViewDelegate <NSObject>
 - (void)keyDown:(int)scancode;
 - (void)keyUp:(int)scancode;
+@optional
+- (void)hideKeyboard:(nullable id)sender;
 @end
 
 @interface KBKeyboardView : UIView

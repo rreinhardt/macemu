@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KBKeyboardView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface B2ViewController : UIViewController
+@interface B2ViewController : UIViewController <KBKeyboardViewDelegate>
+
+@property (nonatomic, getter=isKeyboardVisible) BOOL keyboardVisible;
 
 - (IBAction)showSettings:(id)sender;
 - (IBAction)unwindToMainScreen:(UIStoryboardSegue*)segue;

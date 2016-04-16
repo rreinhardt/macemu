@@ -162,7 +162,7 @@ B2ScreenView *sharedScreenView = nil;
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    [currentTouches minusSet:touches];
+    [self touchesEnded:touches withEvent:event];
 }
 
 @end

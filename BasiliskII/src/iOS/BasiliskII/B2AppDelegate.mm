@@ -22,7 +22,6 @@
 #include "timer.h"
 #include "xpram.h"
 #include "video.h"
-#include "adb.h"
 
 #include <mach/mach.h>
 #include <mach/mach_time.h>
@@ -285,14 +284,6 @@ bool GetTypeAndCreatorForFileName(const char *path, uint32_t *type, uint32_t *cr
         lastPRAM = [NSData dataWithBytes:XPRAM length:XPRAM_SIZE];
         SaveXPRAM();
     }
-}
-
-- (void)keyDown:(int)scancode {
-    ADBKeyDown(scancode);
-}
-
-- (void)keyUp:(int)scancode {
-    ADBKeyUp(scancode);
 }
 
 @end
