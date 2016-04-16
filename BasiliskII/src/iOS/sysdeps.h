@@ -41,7 +41,7 @@
 
 /* Mac and host address space are distinct */
 #define REAL_ADDRESSING 0
-#define DIRECT_ADDRESSING 1
+#define DIRECT_ADDRESSING 0
 
 /* Using 68k emulator */
 #define EMULATED_68K 1
