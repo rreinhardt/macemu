@@ -9,6 +9,7 @@
 #import "B2AppDelegate.h"
 #import "B2ViewController.h"
 #import "B2ScreenView.h"
+#import "B2DocumentsSettingsController.h"
 #import "KBKeyboardView.h"
 
 #include "sysdeps.h"
@@ -113,6 +114,36 @@ bool GetTypeAndCreatorForFileName(const char *path, uint32_t *type, uint32_t *cr
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    if (url.fileURL) {
+        // opening file
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSString *fileName = url.path.lastPathComponent;
+        NSString *destinationPath = [self.documentsPath stringByAppendingPathComponent:fileName];
+        NSError *error = NULL;
+        NSInteger tries = 1;
+        while ([fileManager fileExistsAtPath:destinationPath]) {
+            NSString *newFileName;
+            if (fileName.pathExtension.length > 0) {
+                newFileName = [NSString stringWithFormat:@"%@ %d.%@", fileName.stringByDeletingPathExtension, (int)tries, fileName.pathExtension];
+            } else {
+                newFileName = [NSString stringWithFormat:@"%@ %d", fileName, (int)tries];
+            }
+            destinationPath = [self.documentsPath stringByAppendingPathComponent:newFileName];
+            tries++;
+        }
+        [fileManager moveItemAtPath:url.path toPath:destinationPath error:&error];
+        if (error) {
+            [self showAlertWithTitle:fileName message:error.localizedFailureReason];
+        }
+        NSDictionary *notificationInfo = @{@"path": destinationPath,
+                                           @"sourceApplication": sourceApplication,
+                                           @"annotation": annotation};
+        [[NSNotificationCenter defaultCenter] postNotificationName:B2DidImportFileNotificationName object:self userInfo:notificationInfo];
+    }
+    return YES;
+}
+
 - (void)showAlertWithTitle:(NSString *)title message:(NSString *)message {
     if (![NSThread isMainThread]) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -175,7 +206,7 @@ bool GetTypeAndCreatorForFileName(const char *path, uint32_t *type, uint32_t *cr
     dispatch_once(&onceToken, ^{
         documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
         if (!self.sandboxed) {
-            documentsPath = [documentsPath stringByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]];
+            documentsPath = [documentsPath stringByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]].stringByStandardizingPath;
         }
         [[NSFileManager defaultManager] createDirectoryAtPath:documentsPath withIntermediateDirectories:YES attributes:nil error:NULL];
     });

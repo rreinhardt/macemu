@@ -19,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL showDirectories;
 @property (nonatomic, assign) BOOL showHiddenFiles;
 @property (nonatomic, assign) NSStringCompareOptions sortOptions;
+
+- (void)refresh:(id)sender;
+- (void)selectItem:(NSString*)path;
+
 @end
 
 @protocol B2FileChooserDelegate <NSObject>

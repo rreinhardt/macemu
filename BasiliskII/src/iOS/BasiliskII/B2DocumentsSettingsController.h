@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString *B2DidImportFileNotificationName;
+
 @interface B2DocumentsSettingsController : UINavigationController
 
 @end

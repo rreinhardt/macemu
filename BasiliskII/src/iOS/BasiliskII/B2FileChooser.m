@@ -86,6 +86,15 @@
     }
 }
 
+- (void)selectItem:(NSString *)path {
+    if ([self.path isEqualToString:path.stringByDeletingLastPathComponent]) {
+        NSUInteger index = [directoryContents indexOfObject:path.lastPathComponent];
+        if (index != NSNotFound) {
+            [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+        }
+    }
+}
+
 - (NSString*)filePathAtIndex:(NSUInteger)index {
     NSString *fileName = directoryContents[index];
     return [self.path stringByAppendingPathComponent:fileName];
