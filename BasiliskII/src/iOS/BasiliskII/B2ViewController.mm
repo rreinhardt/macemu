@@ -51,6 +51,20 @@
     return YES;
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
+    if (object == [NSUserDefaults standardUserDefaults]) {
+        if ([keyPath isEqualToString:@"keyboardLayout"] && keyboardView != nil) {
+            BOOL keyboardWasVisible = self.keyboardVisible;
+            [self setKeyboardVisible:NO animated:NO];
+            [keyboardView removeFromSuperview];
+            keyboardView = nil;
+            if (keyboardWasVisible) {
+                [self setKeyboardVisible:YES animated:NO];
+            }
+        }
+    }
+}
+
 #pragma mark - Settings
 
 - (void)showSettings:(id)sender {
@@ -99,6 +113,7 @@
     }
     
     if (visible) {
+        [[NSUserDefaults standardUserDefaults] addObserver:self forKeyPath:@"keyboardLayout" options:0 context:NULL];
         [self loadKeyboardView];
         if (keyboardView.layout == nil) {
             [keyboardView removeFromSuperview];
@@ -115,6 +130,7 @@
             keyboardView.frame = finalFrame;
         }
     } else {
+        [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"keyboardLayout"];
         if (animated) {
             CGRect finalFrame = CGRectMake(0.0, self.view.bounds.size.height, keyboardView.bounds.size.width, keyboardView.bounds.size.height);
             [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
