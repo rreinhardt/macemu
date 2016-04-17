@@ -28,10 +28,6 @@
     return YES;
 }
 
-- (void)showSettings:(id)sender {
-    [self performSegueWithIdentifier:@"settings" sender:sender];
-}
-
 - (void)unwindToMainScreen:(UIStoryboardSegue*)segue {
     [[B2AppDelegate sharedInstance] startEmulator];
 }
@@ -43,6 +39,27 @@
         [coordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
             [self setKeyboardVisible:YES animated:YES];
         }];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self becomeFirstResponder];
+}
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+#pragma mark - Settings
+
+- (void)showSettings:(id)sender {
+    [self performSegueWithIdentifier:@"settings" sender:sender];
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if (motion == UIEventSubtypeMotionShake) {
+        [self showSettings:event];
     }
 }
 

@@ -239,11 +239,13 @@ bool GetTypeAndCreatorForFileName(const char *path, uint32_t *type, uint32_t *cr
 
 - (void)startEmulator {
     // create threads and timer
-    [self initExtFS:self.documentsPath];
-    emulThread = [[NSThread alloc] initWithTarget:self selector:@selector(emulThread) object:nil];
-    tickThread = [[NSThread alloc] initWithTarget:self selector:@selector(tickThread) object:nil];
-    pramTimer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(pramBackup:) userInfo:nil repeats:YES];
-    [emulThread performSelector:@selector(start) withObject:nil afterDelay:1.0];
+    if (emulThread == nil) {
+        [self initExtFS:self.documentsPath];
+        emulThread = [[NSThread alloc] initWithTarget:self selector:@selector(emulThread) object:nil];
+        tickThread = [[NSThread alloc] initWithTarget:self selector:@selector(tickThread) object:nil];
+        pramTimer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(pramBackup:) userInfo:nil repeats:YES];
+        [emulThread performSelector:@selector(start) withObject:nil afterDelay:1.0];
+    }
 }
 
 - (void)deinitEmulator {
