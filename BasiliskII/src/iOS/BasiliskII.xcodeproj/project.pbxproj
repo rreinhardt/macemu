@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		281509101CC57F81004ECA0A /* B2TouchScreen.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2815090F1CC57F81004ECA0A /* B2TouchScreen.mm */; };
 		281A4C9D1CA965B000A380A7 /* B2DocumentsSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 281A4C9C1CA965B000A380A7 /* B2DocumentsSettingsController.m */; };
 		281A4CA31CAB2E0F00A380A7 /* B2FileChooserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 281A4CA21CAB2E0F00A380A7 /* B2FileChooserTableViewCell.m */; };
 		2822DA6918E6325500EE554D /* timer_unix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2822DA6818E6325500EE554D /* timer_unix.cpp */; };
@@ -129,6 +130,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2815090E1CC57F81004ECA0A /* B2TouchScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = B2TouchScreen.h; sourceTree = "<group>"; };
+		2815090F1CC57F81004ECA0A /* B2TouchScreen.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = B2TouchScreen.mm; sourceTree = "<group>"; };
 		281A4C9B1CA965B000A380A7 /* B2DocumentsSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = B2DocumentsSettingsController.h; sourceTree = "<group>"; };
 		281A4C9C1CA965B000A380A7 /* B2DocumentsSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = B2DocumentsSettingsController.m; sourceTree = "<group>"; };
 		281A4CA11CAB2E0F00A380A7 /* B2FileChooserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = B2FileChooserTableViewCell.h; sourceTree = "<group>"; };
@@ -407,6 +410,8 @@
 				2898F46A18CB719600FE7806 /* B2ViewController.mm */,
 				2898F57418CC82DD00FE7806 /* B2ScreenView.h */,
 				2898F57518CC82DD00FE7806 /* B2ScreenView.mm */,
+				2815090E1CC57F81004ECA0A /* B2TouchScreen.h */,
+				2815090F1CC57F81004ECA0A /* B2TouchScreen.mm */,
 				2898F46C18CB719600FE7806 /* Images.xcassets */,
 				288455BB1CB7079F004EF2E6 /* Keyboard */,
 				285033561B496AF00061C869 /* Settings */,
@@ -920,6 +925,7 @@
 				28AD37D619A678CE00ADF203 /* NSString+OSType.m in Sources */,
 				2898F57218CBDB6400FE7806 /* video_ios.mm in Sources */,
 				2898F58B18CCAFB300FE7806 /* audio_ios.cpp in Sources */,
+				281509101CC57F81004ECA0A /* B2TouchScreen.mm in Sources */,
 				28AD37CC19A6135500ADF203 /* tcp_output.c in Sources */,
 				2898F4AB18CB72C100FE7806 /* xpram.cpp in Sources */,
 				2898F54F18CB879400FE7806 /* ether_ios.cpp in Sources */,

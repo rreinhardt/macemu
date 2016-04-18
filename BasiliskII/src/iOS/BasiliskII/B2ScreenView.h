@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface B2ScreenView : UIView
 
 @property (nonatomic, assign) CGSize screenSize;
+@property (nonatomic, assign) CGRect screenBounds;
 @property (nonatomic, readonly) NSArray<NSValue*> *videoModes;
 @property (nonatomic, readonly) BOOL hasRetinaVideoMode;
 - (void)updateImage:(CGImageRef)newImage;

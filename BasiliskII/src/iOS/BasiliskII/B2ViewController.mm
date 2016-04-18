@@ -8,8 +8,10 @@
 
 #import "B2ViewController.h"
 #import "B2AppDelegate.h"
+#import "B2ScreenView.h"
 #import "KBKeyboardView.h"
 #import "KBKeyboardLayout.h"
+#import "B2TouchScreen.h"
 #include "sysdeps.h"
 #include "adb.h"
 
@@ -17,6 +19,7 @@
 {
     KBKeyboardView *keyboardView;
     UISwipeGestureRecognizer *showKeyboardGesture, *hideKeyboardGesture;
+    UIControl *pointingDeviceView;
 }
 
 - (void)viewDidLoad {
@@ -45,6 +48,17 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self becomeFirstResponder];
+    [self setUpPointingDevice];
+    
+}
+
+- (void)setUpPointingDevice {
+    if (pointingDeviceView) {
+        [pointingDeviceView removeFromSuperview];
+    }
+    pointingDeviceView = [[B2TouchScreen alloc] initWithFrame:self.view.bounds];
+    pointingDeviceView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.view insertSubview:pointingDeviceView aboveSubview:sharedScreenView];
 }
 
 - (BOOL)canBecomeFirstResponder {
