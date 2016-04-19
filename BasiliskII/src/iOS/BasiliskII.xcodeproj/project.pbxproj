@@ -12,6 +12,7 @@
 		281A4C9D1CA965B000A380A7 /* B2DocumentsSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 281A4C9C1CA965B000A380A7 /* B2DocumentsSettingsController.m */; };
 		281A4CA31CAB2E0F00A380A7 /* B2FileChooserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 281A4CA21CAB2E0F00A380A7 /* B2FileChooserTableViewCell.m */; };
 		2822DA6918E6325500EE554D /* timer_unix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2822DA6818E6325500EE554D /* timer_unix.cpp */; };
+		283ADAE11CC6CE81003091F5 /* B2SettingsRootTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 283ADAE01CC6CE81003091F5 /* B2SettingsRootTableViewController.m */; };
 		285033201B488EF90061C869 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 282A8E8D1A500A79008F8F71 /* Main.storyboard */; };
 		285033591B496B2B0061C869 /* B2SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 285033581B496B2B0061C869 /* B2SettingsViewController.m */; };
 		2850335F1B4B270A0061C869 /* B2VolumesSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2850335E1B4B270A0061C869 /* B2VolumesSettingsViewController.m */; };
@@ -142,6 +143,8 @@
 		2822DA6818E6325500EE554D /* timer_unix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = timer_unix.cpp; sourceTree = "<group>"; };
 		282A8E8D1A500A79008F8F71 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		282FDBB918D50879006547A0 /* config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = SOURCE_ROOT; };
+		283ADADF1CC6CE81003091F5 /* B2SettingsRootTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = B2SettingsRootTableViewController.h; sourceTree = "<group>"; };
+		283ADAE01CC6CE81003091F5 /* B2SettingsRootTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = B2SettingsRootTableViewController.m; sourceTree = "<group>"; };
 		285033571B496B2B0061C869 /* B2SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = B2SettingsViewController.h; sourceTree = "<group>"; };
 		285033581B496B2B0061C869 /* B2SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = B2SettingsViewController.m; sourceTree = "<group>"; };
 		2850335D1B4B270A0061C869 /* B2VolumesSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = B2VolumesSettingsViewController.h; sourceTree = "<group>"; };
@@ -379,6 +382,8 @@
 			children = (
 				285033571B496B2B0061C869 /* B2SettingsViewController.h */,
 				285033581B496B2B0061C869 /* B2SettingsViewController.m */,
+				283ADADF1CC6CE81003091F5 /* B2SettingsRootTableViewController.h */,
+				283ADAE01CC6CE81003091F5 /* B2SettingsRootTableViewController.m */,
 				2850335D1B4B270A0061C869 /* B2VolumesSettingsViewController.h */,
 				2850335E1B4B270A0061C869 /* B2VolumesSettingsViewController.m */,
 				288C501B1B9CD0A000EA91F3 /* B2VolumeInfoViewController.h */,
@@ -897,6 +902,7 @@
 				28B5C11818D2499D006583B9 /* readcpu.cpp in Sources */,
 				2898F4A018CB72C100FE7806 /* ether.cpp in Sources */,
 				2898F4A118CB72C100FE7806 /* extfs.cpp in Sources */,
+				283ADAE11CC6CE81003091F5 /* B2SettingsRootTableViewController.m in Sources */,
 				2898F49F18CB72C100FE7806 /* emul_op.cpp in Sources */,
 				288C50161B9C6E8B00EA91F3 /* video_blit.cpp in Sources */,
 				2898F4A718CB72C100FE7806 /* slot_rom.cpp in Sources */,
