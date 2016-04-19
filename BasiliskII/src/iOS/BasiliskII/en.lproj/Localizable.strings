@@ -53,6 +53,9 @@
 "settings.sound.enable" = "Enable Sound";
 
 "settings.input.mouse" = "Mouse";
+"settings.input.mouse.type" = "Type";
+"settings.input.mouse.type.trackpad" = "Trackpad";
+"settings.input.mouse.type.touchscreen" = "Touch Screen";
 "settings.input.keyboard.layout.header" = "Keyboard Layout";
 "settings.input.keyboard.layout.footer" = "This sets the look of the keyboard UI, use the emulated Mac's Keyboard control panel to choose a matching layout.";
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		281509101CC57F81004ECA0A /* B2TouchScreen.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2815090F1CC57F81004ECA0A /* B2TouchScreen.mm */; };
+		281509131CC5836A004ECA0A /* B2TrackPad.mm in Sources */ = {isa = PBXBuildFile; fileRef = 281509121CC5836A004ECA0A /* B2TrackPad.mm */; };
 		281A4C9D1CA965B000A380A7 /* B2DocumentsSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 281A4C9C1CA965B000A380A7 /* B2DocumentsSettingsController.m */; };
 		281A4CA31CAB2E0F00A380A7 /* B2FileChooserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 281A4CA21CAB2E0F00A380A7 /* B2FileChooserTableViewCell.m */; };
 		2822DA6918E6325500EE554D /* timer_unix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2822DA6818E6325500EE554D /* timer_unix.cpp */; };
@@ -132,6 +133,8 @@
 /* Begin PBXFileReference section */
 		2815090E1CC57F81004ECA0A /* B2TouchScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = B2TouchScreen.h; sourceTree = "<group>"; };
 		2815090F1CC57F81004ECA0A /* B2TouchScreen.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = B2TouchScreen.mm; sourceTree = "<group>"; };
+		281509111CC5836A004ECA0A /* B2TrackPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = B2TrackPad.h; sourceTree = "<group>"; };
+		281509121CC5836A004ECA0A /* B2TrackPad.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = B2TrackPad.mm; sourceTree = "<group>"; };
 		281A4C9B1CA965B000A380A7 /* B2DocumentsSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = B2DocumentsSettingsController.h; sourceTree = "<group>"; };
 		281A4C9C1CA965B000A380A7 /* B2DocumentsSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = B2DocumentsSettingsController.m; sourceTree = "<group>"; };
 		281A4CA11CAB2E0F00A380A7 /* B2FileChooserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = B2FileChooserTableViewCell.h; sourceTree = "<group>"; };
@@ -412,6 +415,8 @@
 				2898F57518CC82DD00FE7806 /* B2ScreenView.mm */,
 				2815090E1CC57F81004ECA0A /* B2TouchScreen.h */,
 				2815090F1CC57F81004ECA0A /* B2TouchScreen.mm */,
+				281509111CC5836A004ECA0A /* B2TrackPad.h */,
+				281509121CC5836A004ECA0A /* B2TrackPad.mm */,
 				2898F46C18CB719600FE7806 /* Images.xcassets */,
 				288455BB1CB7079F004EF2E6 /* Keyboard */,
 				285033561B496AF00061C869 /* Settings */,
@@ -863,6 +868,7 @@
 				287A15E11CAEF9B700D84E02 /* res.c in Sources */,
 				28AD37CA19A6135500ADF203 /* socket.c in Sources */,
 				28AD37C019A6135500ADF203 /* cksum.c in Sources */,
+				281509131CC5836A004ECA0A /* B2TrackPad.mm in Sources */,
 				2898F4A418CB72C100FE7806 /* rsrc_patches.cpp in Sources */,
 				28D555AE1C97739500059DDE /* B2FileChooser.m in Sources */,
 				28AD37D019A6135500ADF203 /* udp.c in Sources */,

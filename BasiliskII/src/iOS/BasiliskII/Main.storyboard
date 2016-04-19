@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -834,6 +835,29 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="segments" id="TXc-a7-Dt5">
+                                <rect key="frame" x="0.0" y="181.5" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TXc-a7-Dt5" id="38Y-ZL-3s3">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <segmentedControl opaque="NO" tag="128" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="J2G-Ku-9rA">
+                                            <rect key="frame" x="8" y="8" width="584" height="28"/>
+                                            <segments>
+                                                <segment title="First"/>
+                                                <segment title="Second"/>
+                                            </segments>
+                                        </segmentedControl>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="J2G-Ku-9rA" firstAttribute="leading" secondItem="38Y-ZL-3s3" secondAttribute="leadingMargin" id="6Ue-By-JTn"/>
+                                        <constraint firstItem="J2G-Ku-9rA" firstAttribute="trailing" secondItem="38Y-ZL-3s3" secondAttribute="trailingMargin" id="OXM-gp-Jbj"/>
+                                        <constraint firstItem="J2G-Ku-9rA" firstAttribute="top" secondItem="38Y-ZL-3s3" secondAttribute="topMargin" id="YV9-Tz-p09"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="J2G-Ku-9rA" secondAttribute="bottom" id="eGg-iw-ZKS"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>

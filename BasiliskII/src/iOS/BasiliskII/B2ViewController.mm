@@ -12,6 +12,7 @@
 #import "KBKeyboardView.h"
 #import "KBKeyboardLayout.h"
 #import "B2TouchScreen.h"
+#import "B2TrackPad.h"
 #include "sysdeps.h"
 #include "adb.h"
 
@@ -49,14 +50,21 @@
     [super viewDidAppear:animated];
     [self becomeFirstResponder];
     [self setUpPointingDevice];
-    
+    [[NSUserDefaults standardUserDefaults] addObserver:self forKeyPath:@"trackpad" options:0 context:NULL];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"trackpad"];
 }
 
 - (void)setUpPointingDevice {
     if (pointingDeviceView) {
         [pointingDeviceView removeFromSuperview];
+        pointingDeviceView = nil;
     }
-    pointingDeviceView = [[B2TouchScreen alloc] initWithFrame:self.view.bounds];
+    BOOL useTrackPad = [[NSUserDefaults standardUserDefaults] boolForKey:@"trackpad"];
+    Class pointingDeviceClass = useTrackPad ? [B2TrackPad class] : [B2TouchScreen class];
+    pointingDeviceView = [[pointingDeviceClass alloc] initWithFrame:self.view.bounds];
     pointingDeviceView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view insertSubview:pointingDeviceView aboveSubview:sharedScreenView];
 }
@@ -75,6 +83,8 @@
             if (keyboardWasVisible) {
                 [self setKeyboardVisible:YES animated:NO];
             }
+        } else if ([keyPath isEqualToString:@"trackpad"]) {
+            [self setUpPointingDevice];
         }
     }
 }
