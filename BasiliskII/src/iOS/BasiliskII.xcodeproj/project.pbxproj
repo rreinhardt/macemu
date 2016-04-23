@@ -112,6 +112,7 @@
 		28D555A21C934F0400059DDE /* B2NetworkSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D555A11C934F0400059DDE /* B2NetworkSettingsViewController.m */; };
 		28D555A51C93651300059DDE /* B2MiscSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D555A41C93651300059DDE /* B2MiscSettingsViewController.m */; };
 		28D555AE1C97739500059DDE /* B2FileChooser.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D555AD1C97739500059DDE /* B2FileChooser.m */; };
+		28FA0B771CC829A900481FE8 /* B2Application.mm in Sources */ = {isa = PBXBuildFile; fileRef = 28FA0B761CC829A900481FE8 /* B2Application.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -347,6 +348,8 @@
 		28D555A41C93651300059DDE /* B2MiscSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = B2MiscSettingsViewController.m; sourceTree = "<group>"; };
 		28D555AC1C97739500059DDE /* B2FileChooser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = B2FileChooser.h; sourceTree = "<group>"; };
 		28D555AD1C97739500059DDE /* B2FileChooser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = B2FileChooser.m; sourceTree = "<group>"; };
+		28FA0B751CC829A900481FE8 /* B2Application.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = B2Application.h; sourceTree = "<group>"; };
+		28FA0B761CC829A900481FE8 /* B2Application.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = B2Application.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -509,6 +512,8 @@
 			children = (
 				2898F46018CB719600FE7806 /* B2AppDelegate.h */,
 				2898F46118CB719600FE7806 /* B2AppDelegate.mm */,
+				28FA0B751CC829A900481FE8 /* B2Application.h */,
+				28FA0B761CC829A900481FE8 /* B2Application.mm */,
 				28621F1D19ABADC2009615FC /* UI */,
 				2898F54418CB879400FE7806 /* audio_ios.cpp */,
 				28B5C12518D27536006583B9 /* audio_ios_impl.h */,
@@ -893,6 +898,7 @@
 				288455E11CBD6A87004EF2E6 /* B2DesktopDatabase.m in Sources */,
 				2850335F1B4B270A0061C869 /* B2VolumesSettingsViewController.m in Sources */,
 				28AD37CE19A6135500ADF203 /* tcp_timer.c in Sources */,
+				28FA0B771CC829A900481FE8 /* B2Application.mm in Sources */,
 				2898F55318CB879400FE7806 /* serial_ios.cpp in Sources */,
 				285033591B496B2B0061C869 /* B2SettingsViewController.m in Sources */,
 				2898F49D18CB72C100FE7806 /* cdrom.cpp in Sources */,
@@ -1103,7 +1109,7 @@
 					"$(SRCROOT)/../slirp",
 				);
 				INFOPLIST_FILE = "BasiliskII/BasiliskII-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.namedfork.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1131,7 +1137,7 @@
 					"$(SRCROOT)/../slirp",
 				);
 				INFOPLIST_FILE = "BasiliskII/BasiliskII-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.namedfork.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
