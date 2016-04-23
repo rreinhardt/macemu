@@ -40,10 +40,16 @@ static int8_t usb_to_adb_scancode[] = {
 
 @property (nonatomic, readonly) BOOL _isKeyDown;
 @property (nonatomic, readonly) long _keyCode;
+@property (nonatomic) int _modifierFlags;
+@property(retain, nonatomic) NSString *_unmodifiedInput;
+@property(retain, nonatomic) NSString *_modifiedInput;
 
 @end
 
 @implementation B2Application
+{
+    BOOL physicalCapsLocked;
+}
 
 + (void)load {
     // class is not visible
@@ -58,14 +64,42 @@ static int8_t usb_to_adb_scancode[] = {
         scancode = usb_to_adb_scancode[keycode];
     }
     
-    if (scancode >= 0 && [B2AppDelegate sharedInstance].emulatorRunning) {
+    if (scancode == 57) {
+        // caps lock
+        if (event._isKeyDown && !physicalCapsLocked) {
+            ADBKeyDown(scancode);
+            physicalCapsLocked = YES;
+        } else if (event._isKeyDown && physicalCapsLocked) {
+            ADBKeyUp(scancode);
+            physicalCapsLocked = NO;
+        }
+    } else if (scancode >= 0 && [B2AppDelegate sharedInstance].emulatorRunning) {
         if (event._isKeyDown) {
+            [self _updateCapsLockStatus:event];
             ADBKeyDown(scancode);
         } else {
             ADBKeyUp(scancode);
         }
-    } else if (scancode == -1) {
-        NSLog(@"Unknown USB keycode %d", (int)keycode);
+    }
+}
+
+- (void)_updateCapsLockStatus:(UIPhysicalKeyboardEvent *)event {
+    if (event._modifierFlags == 0 && event._unmodifiedInput.length == 1) {
+        unichar unmodifiedChar = [event._unmodifiedInput characterAtIndex:0];
+        unichar modifiedChar = [event._modifiedInput characterAtIndex:0];
+        if ([[NSCharacterSet lowercaseLetterCharacterSet] characterIsMember:unmodifiedChar]) {
+            BOOL currentCapsLock = [[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember:modifiedChar];
+            if (currentCapsLock != physicalCapsLocked) {
+                physicalCapsLocked = currentCapsLock;
+                if (physicalCapsLocked) {
+                    NSLog(@"locking caps");
+                    ADBKeyDown(57);
+                } else {
+                    NSLog(@"unlocking caps");
+                    ADBKeyUp(57);
+                }
+            }
+        }
     }
 }
 
