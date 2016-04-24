@@ -136,9 +136,11 @@ bool GetTypeAndCreatorForFileName(const char *path, uint32_t *type, uint32_t *cr
         if (error) {
             [self showAlertWithTitle:fileName message:error.localizedFailureReason];
         }
-        NSDictionary *notificationInfo = @{@"path": destinationPath,
-                                           @"sourceApplication": sourceApplication,
-                                           @"annotation": annotation};
+        NSMutableDictionary *notificationInfo = @{@"path": destinationPath,
+                                                  @"sourceApplication": sourceApplication}.mutableCopy;
+        if (annotation) {
+            notificationInfo[@"annotation"] = annotation;
+        }
         [[NSNotificationCenter defaultCenter] postNotificationName:B2DidImportFileNotificationName object:self userInfo:notificationInfo];
     }
     return YES;
