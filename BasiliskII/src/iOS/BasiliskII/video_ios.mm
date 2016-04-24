@@ -10,6 +10,8 @@
 #include "debug.h"
 #import "B2ScreenView.h"
 
+#define DEBUG 0
+
 static uint8 bits_from_depth(const video_depth depth)
 {
 	return 1 << depth;
@@ -84,7 +86,7 @@ private:
     CGColorSpaceRef		colorSpace;
     uint8 				*colorTable;
     CGDataProviderRef	provider;
-    short				x, y, bpp, depth, bpr;
+    short				x, y, bpc, bpp, bpr;
     uint8_t				*the_buffer;
     size_t              the_buffer_size;
 };
@@ -115,7 +117,6 @@ bool IOS_monitor::video_open(const video_mode &mode)
     
     x = current_mode.x;
     y = current_mode.y;
-    depth = bits_from_depth(current_mode.depth);
     bpr = current_mode.bytes_per_row;
     
 	colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -153,15 +154,15 @@ bool IOS_monitor::update_image()
     CGBitmapInfo options = kCGImageAlphaNoneSkipFirst;
     switch ( current_mode.depth )
 	{
-		case VDEPTH_1BIT:	bpp = 1; break;
-		case VDEPTH_2BIT:	bpp = 2; break;
-		case VDEPTH_4BIT:	bpp = 4; break;
-		case VDEPTH_8BIT:	bpp = 8; break;
-		case VDEPTH_16BIT:	bpp = 5; options |= kCGBitmapByteOrder16Big; break;
-		case VDEPTH_32BIT:	bpp = 8; options |= kCGBitmapByteOrder32Big; break;
+        case VDEPTH_1BIT:	bpc = 1; bpp = 1; break;
+		case VDEPTH_2BIT:	bpc = 2; bpp = 2; break;
+		case VDEPTH_4BIT:	bpc = 4; bpp = 4; break;
+		case VDEPTH_8BIT:	bpc = 8; bpp = 8; break;
+		case VDEPTH_16BIT:	bpc = 5; bpp = 16; options |= kCGBitmapByteOrder16Little; break;
+		case VDEPTH_32BIT:	bpc = 8; bpp = 32; options |= kCGBitmapByteOrder32Little; break;
 	}
     
-	CGImageRef imageRef = CGImageCreate(x, y, bpp, depth, bpr, colorSpace,
+	CGImageRef imageRef = CGImageCreate(x, y, bpc, bpp, bpr, colorSpace,
 							 options,
 							 provider,
 							 NULL, 	// colorMap translation table
@@ -227,7 +228,7 @@ void IOS_monitor::set_palette(uint8 *pal, int num)
     
 	colorSpace = CGColorSpaceCreateDeviceRGB();
     
-	if ( depth < 16 )
+	if ( bpp < 16 )
 	{
 		CGColorSpaceRef		tempColorSpace = colorSpace;
         
