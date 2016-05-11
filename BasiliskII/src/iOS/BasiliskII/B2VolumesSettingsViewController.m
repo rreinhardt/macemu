@@ -200,7 +200,7 @@ NSString* NSStringFromB2VolumeType(B2VolumeType volumeType) {
     NSString *imageFileName = [name.pathExtension isEqualToString:@"img"] ? name : [name stringByAppendingPathExtension:@"img"];
     NSString *imagePath = [[B2AppDelegate sharedInstance].documentsPath stringByAppendingPathComponent:imageFileName];
     
-    int fd = open(imagePath.fileSystemRepresentation, O_CREAT | O_TRUNC | O_EXCL | O_WRONLY);
+    int fd = open(imagePath.fileSystemRepresentation, O_CREAT | O_TRUNC | O_EXCL | O_WRONLY, 0666);
     if (fd == -1) {
         [[B2AppDelegate sharedInstance] showAlertWithTitle:L(@"settings.volumes.new.error.title") message:[[NSString alloc] initWithUTF8String:strerror(errno)]];
         return;
