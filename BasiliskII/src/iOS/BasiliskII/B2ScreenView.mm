@@ -16,11 +16,14 @@ B2ScreenView *sharedScreenView = nil;
 @implementation B2ScreenView
 {
     CGImageRef screenImage;
+    CALayer *videoLayer;
 }
 
 - (void)awakeFromNib {
     sharedScreenView = self;
     [self initVideoModes];
+    videoLayer = [CALayer layer];
+    [self.layer addSublayer:videoLayer];
 }
 
 - (BOOL)hasRetinaVideoMode {
@@ -58,8 +61,9 @@ B2ScreenView *sharedScreenView = nil;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    [self setScreenSize:_screenSize];
-    [self setNeedsDisplay];
+    if (_screenSize.width > 0.0) {
+        [self setScreenSize:_screenSize];
+    }
 }
 
 - (void)setScreenSize:(CGSize)screenSize {
@@ -69,24 +73,14 @@ B2ScreenView *sharedScreenView = nil;
     _screenBounds = CGRectMake(0, 0, screenSize.width / screenScale, screenSize.height / screenScale);
     _screenBounds.origin.x = (viewBounds.size.width - _screenBounds.size.width)/2;
     _screenBounds = CGRectIntegral(_screenBounds);
-}
-
-- (void)drawRect:(CGRect)rect {
-    CGImageRef imageRef = CGImageRetain(screenImage);
-    if (imageRef) {
-        CGContextRef ctx = UIGraphicsGetCurrentContext();
-        CGContextTranslateCTM(ctx, 0, _screenBounds.size.height);
-        CGContextScaleCTM(ctx, 1.0, -1.0);
-        CGContextDrawImage(ctx, _screenBounds, imageRef);
-        CGImageRelease(imageRef);
-    }
+    videoLayer.frame = _screenBounds;
 }
 
 - (void)updateImage:(CGImageRef)newImage {
     CGImageRef oldImage = screenImage;
     screenImage = CGImageRetain(newImage);
     CGImageRelease(oldImage);
-    [self performSelectorOnMainThread:@selector(setNeedsDisplay) withObject:nil waitUntilDone:NO];
+    [videoLayer performSelectorOnMainThread:@selector(setContents:) withObject:(__bridge id)screenImage waitUntilDone:NO];
 }
 
 @end
