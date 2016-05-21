@@ -45,6 +45,7 @@ void PrefsInit(const char *vmdir, int &argc, char **&argv)
                                                  @"ether": @"slirp",
                                                  @"rom": @"ROM",
                                                  @"frameskip": @2,
+                                                 @"trackpad": @([UIDevice currentDevice].userInterfaceIdiom != UIUserInterfaceIdiomPad),
                                                  }];
         [defaults registerDefaults:defaultPrefs];
         defaultPrefs = nil;
