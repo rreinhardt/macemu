@@ -141,6 +141,7 @@
         [self loadKeyboardView];
         if (keyboardView.layout == nil) {
             [keyboardView removeFromSuperview];
+            return;
         }
         [self.view addSubview:keyboardView];
         keyboardView.hidden = NO;
