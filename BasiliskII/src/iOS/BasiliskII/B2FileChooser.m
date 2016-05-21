@@ -196,7 +196,6 @@
     NSString *fileName = filePath.lastPathComponent;
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:L(@"dir.delete.confirmation.title") message:LX(@"dir.delete.confirmation.message", fileName) preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:L(@"dir.delete.confirmation.delete") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        // delete file
         NSError *error = nil;
         if ([[NSFileManager defaultManager] removeItemAtPath:filePath error:&error]) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[directoryContents indexOfObject:fileName] inSection:0];
@@ -218,7 +217,6 @@
         textField.text = fileName;
     }];
     [alertController addAction:[UIAlertAction actionWithTitle:L(@"dir.rename.rename") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        // delete file
         NSError *error = nil;
         NSString *newName = alertController.textFields.firstObject.text;
         NSString *newPath = [filePath.stringByDeletingLastPathComponent stringByAppendingPathComponent:newName];
