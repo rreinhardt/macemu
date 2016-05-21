@@ -40,12 +40,17 @@ void PrefsInit(const char *vmdir, int &argc, char **&argv)
         AddPrefsDefaults();
         
         // override defaults
+        NSDictionary *layoutForLanguage = @{@"en": @"British.nfkeyboardlayout",
+                                            @"es": @"Spanish (ISO).nfkeyboardlayout",
+                                            @"en-US": @"US.nfkeyboardlayout"};
+        NSString *firstLanguage = [NSBundle preferredLocalizationsFromArray:layoutForLanguage.allKeys].firstObject;
         [defaultPrefs addEntriesFromDictionary:@{@"extfs": @(vmdir),
                                                  @"idlewait": @YES,
                                                  @"ether": @"slirp",
                                                  @"rom": @"ROM",
                                                  @"frameskip": @2,
                                                  @"trackpad": @([UIDevice currentDevice].userInterfaceIdiom != UIUserInterfaceIdiomPad),
+                                                 @"keyboardLayout": layoutForLanguage[firstLanguage]
                                                  }];
         [defaults registerDefaults:defaultPrefs];
         defaultPrefs = nil;
