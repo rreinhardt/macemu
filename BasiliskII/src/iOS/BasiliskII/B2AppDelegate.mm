@@ -193,13 +193,18 @@ bool GetTypeAndCreatorForFileName(const char *path, uint32_t *type, uint32_t *cr
 }
 
 - (BOOL)isSandboxed {
+#if TARGET_IPHONE_SIMULATOR
+    return YES;
+#else
     static dispatch_once_t onceToken;
     static BOOL sandboxed;
     dispatch_once(&onceToken, ^{
-        NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
-        sandboxed = ![bundlePath hasPrefix:@"/Applications/"];
+        // not sandboxed if parent of documents directory is "mobile"
+        NSString *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject.stringByStandardizingPath;
+        sandboxed = ![documentsPath.stringByDeletingLastPathComponent.lastPathComponent isEqualToString:@"mobile"];
     });
     return sandboxed;
+#endif
 }
 
 - (NSString *)documentsPath {
