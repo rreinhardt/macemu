@@ -136,8 +136,10 @@ bool GetTypeAndCreatorForFileName(const char *path, uint32_t *type, uint32_t *cr
         if (error) {
             [self showAlertWithTitle:fileName message:error.localizedFailureReason];
         }
-        NSMutableDictionary *notificationInfo = @{@"path": destinationPath,
-                                                  @"sourceApplication": sourceApplication}.mutableCopy;
+        NSMutableDictionary *notificationInfo = @{@"path": destinationPath}.mutableCopy;
+        if (sourceApplication) {
+            notificationInfo[@"sourceApplication"] = sourceApplication;
+        }
         if (annotation) {
             notificationInfo[@"annotation"] = annotation;
         }

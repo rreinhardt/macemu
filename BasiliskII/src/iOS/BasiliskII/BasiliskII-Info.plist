@@ -9,14 +9,14 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Unknown File</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.item</string>
 			</array>
-			<key>LSHandlerRank</key>
-			<string>Alternate</string>
-			<key>CFBundleTypeName</key>
-			<string>Unknown File</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeIconFiles</key>
@@ -142,6 +142,7 @@
 				<array>
 					<string>img</string>
 					<string>dsk</string>
+					<string>image</string>
 				</array>
 			</dict>
 		</dict>
