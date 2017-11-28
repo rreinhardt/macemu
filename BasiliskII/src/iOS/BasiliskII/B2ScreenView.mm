@@ -66,9 +66,21 @@ B2ScreenView *sharedScreenView = nil;
     }
 }
 
+- (CGRect)_threadsafeBounds {
+    if ([NSThread isMainThread]) {
+        return self.bounds;
+    } else {
+        __block CGRect bounds;
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            bounds = self.bounds;
+        });
+        return bounds;
+    }
+}
+
 - (void)setScreenSize:(CGSize)screenSize {
     _screenSize = screenSize;
-    CGRect viewBounds = self.bounds;
+    CGRect viewBounds = [self _threadsafeBounds];
     CGFloat screenScale = MAX(screenSize.width / viewBounds.size.width, screenSize.height / viewBounds.size.height);
     _screenBounds = CGRectMake(0, 0, screenSize.width / screenScale, screenSize.height / screenScale);
     _screenBounds.origin.x = (viewBounds.size.width - _screenBounds.size.width)/2;
