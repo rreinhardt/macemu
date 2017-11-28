@@ -489,6 +489,7 @@
 			);
 			name = Sources;
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		0856CD7E14A99EEF000B1711 /* dummy */ = {
 			isa = PBXGroup;
@@ -1358,7 +1359,6 @@
 					0x3000,
 					"-Wl,-seg1addr,0x78048000",
 					"-lkpx_cpu",
-					"-lclip",
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = SheepShaver;
@@ -1417,7 +1417,6 @@
 					0x3000,
 					"-Wl,-seg1addr,0x78048000",
 					"-lkpx_cpu",
-					"-lclip",
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = SheepShaver;

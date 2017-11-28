@@ -187,10 +187,10 @@ typedef char * caddr_t;
 #endif
 
 /* Time data type for Time Manager emulation */
-#ifdef HAVE_CLOCK_GETTIME
-typedef struct timespec tm_time_t;
-#elif defined(__MACH__)
+#if defined(__MACH__)
 typedef mach_timespec_t tm_time_t;
+#elif defined(HAVE_CLOCK_GETTIME)
+typedef struct timespec tm_time_t;
 #else
 typedef struct timeval tm_time_t;
 #endif
@@ -268,7 +268,7 @@ static inline int testandset(volatile int *p)
 	__asm__ __volatile__("0: cs    %0,%1,0(%2)\n"
 						 "   jl    0b"
 						 : "=&d" (ret)
-						 : "r" (1), "a" (p), "0" (*p) 
+						 : "r" (1), "a" (p), "0" (*p)
 						 : "cc", "memory" );
 	return ret;
 }
@@ -317,7 +317,7 @@ static inline int testandset(volatile int *p)
 	__asm__ __volatile__("swp %0, %1, [%2]"
 						 : "=r"(ret)
 						 : "0"(1), "r"(p));
-	
+
 	return ret;
 }
 #endif
