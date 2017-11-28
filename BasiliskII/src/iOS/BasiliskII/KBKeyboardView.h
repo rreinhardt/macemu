@@ -26,4 +26,5 @@
 @property (nonatomic, readonly, nonnull) NSArray<KBKey*>* keys;
 @property (nonatomic, readonly, nonnull) NSArray<KBKey*>* stickyKeys;
 
+- (nonnull instancetype)initWithFrame:(CGRect)frame safeAreaInsets:(UIEdgeInsets)safeAreaInsets;
 @end

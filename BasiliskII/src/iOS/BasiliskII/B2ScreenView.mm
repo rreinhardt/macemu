@@ -20,32 +20,43 @@ B2ScreenView *sharedScreenView = nil;
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     sharedScreenView = self;
-    [self initVideoModes];
     videoLayer = [CALayer layer];
     [self.layer addSublayer:videoLayer];
 }
 
 - (BOOL)hasRetinaVideoMode {
-    return [UIDevice currentDevice].userInterfaceIdiom != UIUserInterfaceIdiomPad && (int)[UIScreen mainScreen].scale == 2;
+    return [UIDevice currentDevice].userInterfaceIdiom != UIUserInterfaceIdiomPad && (int)[UIScreen mainScreen].scale >= 2;
 }
 
 - (void)initVideoModes {
     NSMutableArray *videoModes = [[NSMutableArray alloc] initWithCapacity:8];
-    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    CGSize screenSize = [UIScreen mainScreen].bounds.size;
     if (screenSize.width < screenSize.height) {
         auto swp = screenSize.width;
         screenSize.width = screenSize.height;
         screenSize.height = swp;
     }
+    CGSize landscapeScreenSize = screenSize;
+    CGSize portraitScreenSize = CGSizeMake(screenSize.height, screenSize.width);
+    if (@available(iOS 11, *)) {
+        // detect iPhone X notch and knob insets
+        UIEdgeInsets safeAreaInsets = self.superview.safeAreaInsets;
+        CGFloat notchSize = MAX(MAX(safeAreaInsets.top, safeAreaInsets.left), safeAreaInsets.right);
+        CGFloat knobSize = safeAreaInsets.bottom;
+        portraitScreenSize.height -= (notchSize + knobSize);
+        landscapeScreenSize.width -= notchSize * 2.0;
+        landscapeScreenSize.height -= knobSize;
+    }
     
     // current screen size
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"videoDepth": @(8), @"videoSize": NSStringFromCGSize(screenSize)}];
-    [videoModes addObject:[NSValue valueWithCGSize:CGSizeMake(screenSize.width, screenSize.height)]];
-    [videoModes addObject:[NSValue valueWithCGSize:CGSizeMake(screenSize.height, screenSize.width)]];
+    [videoModes addObject:[NSValue valueWithCGSize:landscapeScreenSize]];
+    [videoModes addObject:[NSValue valueWithCGSize:portraitScreenSize]];
     if ([self hasRetinaVideoMode]) {
-        [videoModes addObject:[NSValue valueWithCGSize:CGSizeMake(screenSize.width * 2, screenSize.height * 2)]];
-        [videoModes addObject:[NSValue valueWithCGSize:CGSizeMake(screenSize.height * 2, screenSize.width * 2)]];
+        [videoModes addObject:[NSValue valueWithCGSize:CGSizeMake(landscapeScreenSize.width * 2, landscapeScreenSize.height * 2)]];
+        [videoModes addObject:[NSValue valueWithCGSize:CGSizeMake(portraitScreenSize.width * 2, portraitScreenSize.height * 2)]];
     }
     
     // default resolutions
@@ -61,6 +72,10 @@ B2ScreenView *sharedScreenView = nil;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self initVideoModes];
+    });
     if (_screenSize.width > 0.0) {
         [self setScreenSize:_screenSize];
     }
