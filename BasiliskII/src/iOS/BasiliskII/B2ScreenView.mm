@@ -40,14 +40,9 @@ B2ScreenView *sharedScreenView = nil;
     }
     CGSize landscapeScreenSize = screenSize;
     CGSize portraitScreenSize = CGSizeMake(screenSize.height, screenSize.width);
-    if (@available(iOS 11, *)) {
-        // detect iPhone X notch and knob insets
-        UIEdgeInsets safeAreaInsets = self.superview.safeAreaInsets;
-        CGFloat notchSize = MAX(MAX(safeAreaInsets.top, safeAreaInsets.left), safeAreaInsets.right);
-        CGFloat knobSize = safeAreaInsets.bottom;
-        portraitScreenSize.height -= (notchSize + knobSize);
-        landscapeScreenSize.width -= notchSize * 2.0;
-        landscapeScreenSize.height -= knobSize;
+    if (screenSize.width == 812.0 && screenSize.height == 375.0) {
+        landscapeScreenSize = CGSizeMake(752.0, 354.0);
+        portraitScreenSize = CGSizeMake(375.0, 734.0);
     }
     
     // current screen size
