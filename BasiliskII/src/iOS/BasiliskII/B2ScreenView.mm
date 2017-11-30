@@ -101,6 +101,10 @@ B2ScreenView *sharedScreenView = nil;
     _screenBounds.origin.x = (viewBounds.size.width - _screenBounds.size.width)/2;
     _screenBounds = CGRectIntegral(_screenBounds);
     videoLayer.frame = _screenBounds;
+    BOOL scaleIsIntegral = (floor(screenScale) == screenScale);
+    NSString *filter = scaleIsIntegral ? kCAFilterNearest : kCAFilterLinear;
+    videoLayer.magnificationFilter = filter;
+    videoLayer.minificationFilter = filter;
 }
 
 - (void)updateImage:(CGImageRef)newImage {
