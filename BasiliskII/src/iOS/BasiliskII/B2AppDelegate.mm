@@ -118,6 +118,40 @@ bool GetTypeAndCreatorForFileName(const char *path, uint32_t *type, uint32_t *cr
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    NSMutableDictionary *options = [NSMutableDictionary dictionaryWithCapacity:2];
+    if (sourceApplication) {
+        options[UIApplicationOpenURLOptionsSourceApplicationKey] = sourceApplication;
+    }
+    if (annotation) {
+        options[UIApplicationOpenURLOptionsAnnotationKey] = annotation;
+    }
+    return [self application:application openURL:url options:options];
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    if (url.fileURL) {
+        // opening file
+        NSString *inboxPath = [self.documentsPath stringByAppendingPathComponent:@"Inbox"];
+        if ([url.path.stringByStandardizingPath hasPrefix:inboxPath]) {
+            // pre-iOS 11 import through inbox
+            [url startAccessingSecurityScopedResource];
+            [self importFileToDocuments:url copy:NO];
+            [url stopAccessingSecurityScopedResource];
+        } else if ([url.path.stringByStandardizingPath hasPrefix:self.documentsPath]) {
+            // I'm not sure what to do with this file, pretend nothing happened
+        } else if ([options[UIApplicationOpenURLOptionsOpenInPlaceKey] boolValue]) {
+            // not in documents - copy
+            [url startAccessingSecurityScopedResource];
+            [self importFileToDocuments:url copy:YES];
+            [url stopAccessingSecurityScopedResource];
+        } else {
+            return [self importFileToDocuments:url copy:NO];
+        }
+    }
+    return YES;
+}
+
+- (BOOL)importFileToDocuments:(NSURL *)url copy:(BOOL)copy {
     if (url.fileURL) {
         // opening file
         NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -135,18 +169,15 @@ bool GetTypeAndCreatorForFileName(const char *path, uint32_t *type, uint32_t *cr
             destinationPath = [self.documentsPath stringByAppendingPathComponent:newFileName];
             tries++;
         }
-        [fileManager moveItemAtPath:url.path toPath:destinationPath error:&error];
+        if (copy) {
+            [fileManager copyItemAtPath:url.path toPath:destinationPath error:&error];
+        } else {
+            [fileManager moveItemAtPath:url.path toPath:destinationPath error:&error];
+        }
         if (error) {
             [self showAlertWithTitle:fileName message:error.localizedFailureReason];
         }
-        NSMutableDictionary *notificationInfo = @{@"path": destinationPath}.mutableCopy;
-        if (sourceApplication) {
-            notificationInfo[@"sourceApplication"] = sourceApplication;
-        }
-        if (annotation) {
-            notificationInfo[@"annotation"] = annotation;
-        }
-        [[NSNotificationCenter defaultCenter] postNotificationName:B2DidImportFileNotificationName object:self userInfo:notificationInfo];
+        [[NSNotificationCenter defaultCenter] postNotificationName:B2DidImportFileNotificationName object:self userInfo:@{@"path": destinationPath}];
     }
     return YES;
 }
