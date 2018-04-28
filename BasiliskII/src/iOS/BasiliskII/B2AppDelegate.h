@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) UIWindow *window;
 @property (readonly, nonatomic) NSString *documentsPath;
+@property (readonly, nonatomic) NSString *userKeyboardLayoutsPath;
 @property (readonly, nonatomic, getter = isSandboxed) BOOL sandboxed;
 @property (readonly, nonatomic) BOOL emulatorRunning;
 @property (readonly, nonatomic) NSArray<NSString *> *availableDiskImages;

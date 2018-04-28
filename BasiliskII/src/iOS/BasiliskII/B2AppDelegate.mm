@@ -86,6 +86,9 @@ bool GetTypeAndCreatorForFileName(const char *path, uint32_t *type, uint32_t *cr
     [application setStatusBarHidden:YES];
     [self initEmulator];
     
+    // populate documents directory so it shows up in Files
+    [[NSFileManager defaultManager] createDirectoryAtPath:self.userKeyboardLayoutsPath withIntermediateDirectories:YES attributes:nil error:nil];
+
     // show preferences
     [self.window.rootViewController performSelector:@selector(showSettings:) withObject:self afterDelay:0.0];
     
@@ -222,6 +225,15 @@ bool GetTypeAndCreatorForFileName(const char *path, uint32_t *type, uint32_t *cr
     return documentsPath;
 }
 
+- (NSString *)userKeyboardLayoutsPath {
+    static dispatch_once_t onceToken;
+    static NSString *userKeyboardLayoutsPath;
+    dispatch_once(&onceToken, ^{
+        userKeyboardLayoutsPath = [self.documentsPath stringByAppendingPathComponent:@"Keyboard Layouts"];
+    });
+    return userKeyboardLayoutsPath;
+}
+
 - (NSArray *)availableDiskImages {
     NSFileManager *fm = [NSFileManager defaultManager];
     NSArray *diskImageExtensions = @[@"img", @"dsk", @"dc42", @"diskcopy42", @"iso", @"cdr", @"toast"];
@@ -232,7 +244,14 @@ bool GetTypeAndCreatorForFileName(const char *path, uint32_t *type, uint32_t *cr
 }
 
 - (NSArray *)availableKeyboardLayouts {
-    return [[NSBundle mainBundle] pathsForResourcesOfType:@"nfkeyboardlayout" inDirectory:@"Keyboard Layouts"];
+    NSMutableArray<NSString*> *keyboardLayouts = [[NSBundle mainBundle] pathsForResourcesOfType:@"nfkeyboardlayout" inDirectory:@"Keyboard Layouts"].mutableCopy;
+    NSArray<NSString*> *userKeyboardLayouts = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:[self userKeyboardLayoutsPath] error:nil] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension.lowercaseString = %@", @"nfkeyboardlayout"]];
+    for (NSString *keyboardLayout in userKeyboardLayouts) {
+        if (![keyboardLayouts containsObject:keyboardLayout]) {
+            [keyboardLayouts addObject:keyboardLayout];
+        }
+    }
+    return keyboardLayouts;
 }
 
 - (void)initEmulator {
