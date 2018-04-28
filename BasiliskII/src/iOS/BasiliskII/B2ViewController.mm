@@ -32,6 +32,10 @@
     return YES;
 }
 
+- (UIRectEdge)preferredScreenEdgesDeferringSystemGestures {
+    return UIRectEdgeAll;
+}
+
 - (void)unwindToMainScreen:(UIStoryboardSegue*)segue {
     [[B2AppDelegate sharedInstance] startEmulator];
 }
