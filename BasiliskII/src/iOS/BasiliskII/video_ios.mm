@@ -151,15 +151,15 @@ bool IOS_monitor::video_open(const video_mode &mode)
 bool IOS_monitor::update_image()
 {
     video_mode current_mode = get_current_mode();
-    CGBitmapInfo options = kCGImageAlphaNoneSkipFirst;
+    CGBitmapInfo options = 0;
     switch ( current_mode.depth )
 	{
-        case VDEPTH_1BIT:	bpc = 1; bpp = 1; break;
-		case VDEPTH_2BIT:	bpc = 2; bpp = 2; break;
-		case VDEPTH_4BIT:	bpc = 4; bpp = 4; break;
-		case VDEPTH_8BIT:	bpc = 8; bpp = 8; break;
-		case VDEPTH_16BIT:	bpc = 5; bpp = 16; options |= kCGBitmapByteOrder16Little; break;
-		case VDEPTH_32BIT:	bpc = 8; bpp = 32; options |= kCGBitmapByteOrder32Little; break;
+        case VDEPTH_1BIT:	bpc = 1; bpp = 1; options = kCGImageAlphaNone; break;
+		case VDEPTH_2BIT:	bpc = 2; bpp = 2; options = kCGImageAlphaNone; break;
+		case VDEPTH_4BIT:	bpc = 4; bpp = 4; options = kCGImageAlphaNone; break;
+		case VDEPTH_8BIT:	bpc = 8; bpp = 8; options = kCGImageAlphaNone; break;
+		case VDEPTH_16BIT:	bpc = 5; bpp = 16; options = kCGBitmapByteOrder16Little | kCGImageAlphaNoneSkipFirst; break;
+		case VDEPTH_32BIT:	bpc = 8; bpp = 32; options = kCGBitmapByteOrder32Little | kCGImageAlphaNoneSkipFirst; break;
 	}
     
 	CGImageRef imageRef = CGImageCreate(x, y, bpc, bpp, bpr, colorSpace,
