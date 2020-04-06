@@ -12,6 +12,8 @@
 #include "sysdeps.h"
 #include "adb.h"
 
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+
 @implementation B2TouchScreen
 {
     // when using absolute mouse mode, button events are processed before the position is updated
@@ -21,7 +23,26 @@
     NSTimeInterval touchTimeThreshold;
     CGFloat touchDistanceThreshold;
     NSMutableSet *currentTouches;
+    #ifdef __IPHONE_13_4
+    UIPointerInteraction* interaction;
+    #endif
 }
+
+#ifdef __IPHONE_13_4
+- (UIPointerRegion *)pointerInteraction:(UIPointerInteraction *)interaction regionForRequest:(UIPointerRegionRequest *)request defaultRegion:(UIPointerRegion *)defaultRegion  API_AVAILABLE(ios(13.4)){
+    if (request != nil) {
+        Point mouseLoc = [self mouseLocForCGPoint:request.location];
+        // NSLog(@"Interaction: x2: %hi, y2: %hi", (short)mouseLoc.h, (short)mouseLoc.v);
+        ADBMouseMoved(mouseLoc.h, mouseLoc.v);
+    }
+    return defaultRegion;
+}
+
+- (UIPointerStyle *)pointerInteraction:(UIPointerInteraction *)interaction styleForRegion:(UIPointerRegion *)region {
+    return [UIPointerStyle hiddenPointerStyle];
+
+}
+#endif
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
@@ -30,8 +51,19 @@
         touchDistanceThreshold = 16;
         currentTouches = [NSMutableSet setWithCapacity:4];
     }
+    
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"13.4")) {
+        interaction = [[UIPointerInteraction alloc] initWithDelegate: self];
+        [self addInteraction:interaction];
+    }
+    
+    UIHoverGestureRecognizer *hover = [[UIHoverGestureRecognizer alloc] initWithTarget:self action:@selector(hover:)];
+    [self addGestureRecognizer:hover];
+    
     return self;
 }
+
 
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     ADBSetRelMouseMode(false);
@@ -98,5 +130,27 @@
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
     [self touchesEnded:touches withEvent:event];
 }
+
+- (void)hover:(UIHoverGestureRecognizer *)pan
+{
+    CGPoint p = [pan locationInView:self];
+    
+    Point mouseLoc = [self mouseLocForCGPoint:p];
+    
+    ADBMouseMoved(mouseLoc.h, mouseLoc.v);
+//    [[AppDelegate sharedEmulator] setMouseX:mouseLoc.h Y:mouseLoc.v];
+}
+
+//-(id)pointerInteraction:(id)p regionForRequest:(id)r defaultRegion:(id)d
+//{
+//    return [NSClassFromString(@"UIPointerRegion") regionWithRect:self.bounds identifier:@"Blah"];
+//}
+//
+//-(id)pointerInteraction:(id)p styleForRegion:(int)a
+//{
+//    id style = [NSClassFromString(@"UIPointerStyle") hiddenPointerStyle];
+//    
+//    return style;
+//}
 
 @end

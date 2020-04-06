@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface B2TouchScreen : UIControl
-
+#ifdef __IPHONE_13_4
+API_AVAILABLE(ios(13.4))
+@interface B2TouchScreen : UIControl <UIPointerInteractionDelegate>
+#else
+@interface B2TouchScreen : UIControl <UIPointerInteractionDelegate>
+#endif
 @end
